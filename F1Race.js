@@ -1146,4 +1146,14 @@ function F1Race_Cyclic_Timer()
 
 
 }};
-newGame();
+gover = true;
+	gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));
+gui_draw_horizontal_line(0,canvasWidth/2-24,10,gui_color(0,0,0));
+c = gui_color(135,159,255);
+gui_fill_rectangle(10,48,120,70,c);      
+	  ctx.font = Math.round(canvasWidth/10)-1+'px arial';
+	  ctx.textAlign = 'center';
+	  ctx.fillStyle=gui_color(0,0,0);
+    ctx.fillText('F1 Race', canvasWidth/2, 15);
+gui_draw_horizontal_line(canvasWidth/2+24,canvasWidth,10,gui_color(0,0,0));	
+ctx.fillText('Play', canvasWidth/2, canvasHeight/2);
