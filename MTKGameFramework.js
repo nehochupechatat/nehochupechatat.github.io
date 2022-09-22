@@ -58,6 +58,19 @@ function gui_set_clip (x1, y1, x2, y2)
 ctx.rect(x1,y1,x2-x1,y2-y1);
 ctx.clip();}
 
+
+function getWidth(i)
+{image = new Image();
+image.src = i;	
+var width = image.width;
+return width;}
+
+function getHeight(i)
+{image = new Image();
+image.src = i;	
+var height = image.height;
+return height;}
+
 function mmi_gfx_draw_gameover_screen(text_img_id, box_img_id, pic_img_id, score)
 {
     var text_image_width = 0;
@@ -80,24 +93,29 @@ function mmi_gfx_draw_gameover_screen(text_img_id, box_img_id, pic_img_id, score
     /*----------------------------------------------------------------*/
     gui_fill_rectangle(0, 0, canvasWidth,canvasHeight, gui_color(255,255,255));
 
+   text_image_height = getHeight(text_img_id);
+   box_image_height = getHeight(box_img_id);
+   pic_image_height = getHeight(pic_img_id);
+   text_image_width = getWidth(text_img_id);
+   box_image_width = getWidth(box_img_id);
+   pic_image_width = getWidth(pic_img_id);
+
+
+
     spacing =
         (128 - (text_image_height + box_image_height + pic_image_height)) >> 2;
 
     text_image_offset_y = spacing;
     box_image_offset_y = text_image_offset_y + text_image_height + spacing;
     pic_image_offset_y = box_image_offset_y + box_image_height + spacing;
-		var image = new Image;
-	    image.src = text_img_id;
-        ctx.drawImage(image, (canvasWidth - image.width) >> 1, text_image_offset_y)
-		var image = new Image;
-	    image.src = box_img_id;
-    ctx.drawImage(image, (canvasWidth - image.width) >> 1, box_image_offset_y)
-		var image = new Image;
-	    image.src = pic_img_id;
-    ctx.drawImage(image, (canvasWidth - image.width) >> 1, pic_image_offset_y);
-	  ctx.font = '16px serif';
+
+        gui_show_image((canvasWidth - text_image_width) >> 1, text_image_offset_y, text_img_id);
+        gui_show_image((canvasWidth - box_image_width) >> 1, box_image_offset_y, box_img_id);
+        gui_show_image((canvasWidth - pic_image_width) >> 1, pic_image_offset_y, pic_img_id);
+		
+	  ctx.font = '16px arial';
 	  ctx.textAlign = 'center';
 	  ctx.fillStyle=gui_color(0,0,0);
-    ctx.fillText(score, (canvasWidth - image.width*1.75), box_image_offset_y*1.3);
+    ctx.fillText(score, (canvasWidth - box_image_width)*1.1, box_image_offset_y*1.45);
 
 }

@@ -1,10 +1,9 @@
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
 var canvasWidth = 128;
 var canvasHeight = 128;
 
 // Game Defines                                                         */
 // Car Infomation
+var gover = false;
 var F1RACE_PLAYER_CAR_IMAGE_SIZE_X  = 15;
 var F1RACE_PLAYER_CAR_IMAGE_SIZE_Y  = 20;
 
@@ -116,30 +115,30 @@ const F1RACE_OPPOSITE_CAR_STRUCT =
 };
 
 //Global Variables
-var f1race_is_new_game = true;
-var f1race_is_crashing = false;
+var f1race_is_new_game;
+var f1race_is_crashing;
 var f1race_crashing_count_down;
 var f1race_key_up_pressed;
 var f1race_key_down_pressed;
 var f1race_key_right_pressed;
 var f1race_key_left_pressed;
 
-var f1race_key_up_pressed = false;
-var f1race_key_down_pressed = false;
-var f1race_key_right_pressed = false;
-var f1race_key_left_pressed = false;
-var f1race_separator_0_block_start_y = F1RACE_DISPLAY_START_Y;
-var f1race_separator_1_block_start_y = F1RACE_DISPLAY_START_Y;
+var f1race_key_up_pressed;
+var f1race_key_down_pressed;
+var f1race_key_right_pressed ;
+var f1race_key_left_pressed;
+var f1race_separator_0_block_start_y;
+var f1race_separator_1_block_start_y;
 	
-var f1race_player_is_car_fly = false;
+var f1race_player_is_car_fly;
 var f1race_player_car_fly_duration;
-var f1race_is_crashing = false;
-var f1race_last_car_road = 0;
-var f1race_score = 0;
-var f1race_level = 1;
-var f1race_pass = 0;
-var f1race_fly_count = 1;
-var f1race_fly_charger_count = 0;	
+var f1race_is_crashing;
+var f1race_last_car_road;
+var f1race_score;
+var f1race_level;
+var f1race_pass;
+var f1race_fly_count;
+var f1race_fly_charger_count;	
 
 //sprites
 var IMG_GX_F1RACE_STATUS_BOX = 'GameImages/F1race/GAME_F1RACE_STATUS_BOX.gif';
@@ -243,6 +242,66 @@ for(let i = 0; i < F1RACE_OPPOSITE_CAR_COUNT; i++)
 {
 	f1race_opposite_car[i] = F1RACE_OPPOSITE_CAR_STRUCT;
 }
+
+
+function keydownHandler(evt) {
+  switch (evt.keyCode) {
+    case 38:  /* Up arrow was pressed */
+      f1race_key_up_pressed = true;
+	  evt.preventDefault();
+      break;
+    case 40:  /* Down arrow was pressed */
+      f1race_key_down_pressed = true;
+	  evt.preventDefault();
+      break;
+    case 37:  /* Left arrow was pressed */
+      f1race_key_left_pressed = true;
+	  evt.preventDefault();
+      break;
+    case 39:  /* Right arrow was pressed */
+      f1race_key_right_pressed = true;
+	  evt.preventDefault();
+      break;
+	case 32: //space
+	case 12: //numpad 5
+	case 13:
+	    if (f1race_fly_count > 0 )
+    {	f1race_player_is_car_fly = true;
+        f1race_player_car_fly_duration = 0;
+		f1race_fly_count--;
+		f1race_fly_count = f1race_fly_count;
+    }
+	if (gover == true)
+	{gover = false;newGame();}
+    break;
+   }
+}
+
+function keyupHandler(evt) {
+  switch (evt.keyCode) {
+	case 32: //space
+	case 12: //numpad 5
+	case 13:
+	f1race_fly_count = f1race_fly_count;
+	break;
+    case 38:  /* Up arrow was pressed */
+      f1race_key_up_pressed = false;
+      break;
+    case 40:  /* Down arrow was pressed */
+      f1race_key_down_pressed = false;
+      break;
+    case 37:  /* Left arrow was pressed */
+      f1race_key_left_pressed = false;
+      break;
+    case 39:  /* Right arrow was pressed */
+      f1race_key_right_pressed = false;
+      break;
+   }
+}
+
+window.addEventListener('keydown', keydownHandler, true);
+window.addEventListener('keyup', keyupHandler, true);
+
 
 
 
@@ -901,63 +960,9 @@ function F1Race_Crashing()
 }
 
 function F1Race_Draw_GameOver()
-{   var canvasWidth = 128;
-    var canvasHeight = 128;
-    clearInterval(Timer);
-    mmi_gfx_draw_gameover_screen(IMG_GX_F1RACE_GOTEXT, IMG_GX_F1RACE_GRADESMAP, IMG_GX_F1RACE_GOPIC, f1race_score);
+{       mmi_gfx_draw_gameover_screen(IMG_GX_F1RACE_GOTEXT, IMG_GX_F1RACE_GRADESMAP, IMG_GX_F1RACE_GOPIC, f1race_score)
+      gover = true;
 }
-
-
-function keydownHandler(evt) {
-  switch (evt.keyCode) {
-    case 38:  /* Up arrow was pressed */
-      f1race_key_up_pressed = true;
-      break;
-    case 40:  /* Down arrow was pressed */
-      f1race_key_down_pressed = true;
-      break;
-    case 37:  /* Left arrow was pressed */
-      f1race_key_left_pressed = true;
-      break;
-    case 39:  /* Right arrow was pressed */
-      f1race_key_right_pressed = true;
-      break;
-	case 32: //space
-	case 12: //numpad 5
-
-	    if (f1race_fly_count > 0 )
-    {	f1race_player_is_car_fly = true;
-        f1race_player_car_fly_duration = 0;
-		f1race_fly_count--;
-		f1race_fly_count = f1race_fly_count;
-    }
-	break;
-   }
-}
-
-function keyupHandler(evt) {
-  switch (evt.keyCode) {
-	case 32: //space
-	case 12: //numpad 5
-	f1race_fly_count = f1race_fly_count;
-	break;
-    case 38:  /* Up arrow was pressed */
-      f1race_key_up_pressed = false;
-      break;
-    case 40:  /* Down arrow was pressed */
-      f1race_key_down_pressed = false;
-      break;
-    case 37:  /* Left arrow was pressed */
-      f1race_key_left_pressed = false;
-      break;
-    case 39:  /* Right arrow was pressed */
-      f1race_key_right_pressed = false;
-      break;
-   }
-}
-
-window.addEventListener('keydown', keydownHandler, true);
-window.addEventListener('keyup', keyupHandler, true);
 
 function F1Race_Framemove()
 {
@@ -1083,13 +1088,43 @@ function F1Race_Render()
 
 
 //main
-var f1race_crashing_count_down = 10;
 var low_cost_audio = false;
+function newGame ()
+{var index;
 const Timer = setInterval(F1Race_Cyclic_Timer, F1RACE_TIMER_ELAPSE);
+f1race_is_new_game = true;
+f1race_is_crashing = false;
+f1race_key_up_pressed = false;
+f1race_key_down_pressed = false;
+f1race_key_right_pressed = false;
+f1race_key_left_pressed = false;
+f1race_separator_0_block_start_y = F1RACE_DISPLAY_START_Y;
+f1race_separator_1_block_start_y = F1RACE_DISPLAY_START_Y;
+f1race_crashing_count_down = 10;
+f1race_player_is_car_fly = false;
+f1race_player_car.pos_x = ((F1RACE_ROAD_1_START_X + F1RACE_ROAD_1_END_X - F1RACE_PLAYER_CAR_IMAGE_SIZE_X) / 2),
+f1race_player_car.pos_y = F1RACE_DISPLAY_END_Y - F1RACE_PLAYER_CAR_IMAGE_SIZE_Y - 1;
+f1race_opposite_car_type 
+f1race_is_crashing = false;
+f1race_last_car_road = 0;
+f1race_score = 0;
+f1race_level = 1;
+f1race_pass = 0;
+f1race_fly_count = 1;
+f1race_fly_charger_count = 0;	
+
+
+    for (index = 0; index < F1RACE_OPPOSITE_CAR_COUNT; index++)
+    {
+        f1race_opposite_car[index].is_empty = true; /* clear all slot, no car */
+        f1race_opposite_car[index].is_add_score = false;
+    }
+
+
 function F1Race_Cyclic_Timer()
 {
 
-    /* 0 = false. (not gameover) */
+    // 0 = false. (not gameover) 
     if (f1race_is_crashing == false)
     {
         F1Race_Framemove();
@@ -1110,4 +1145,5 @@ function F1Race_Cyclic_Timer()
     }
 
 
-}
+}};
+newGame();
