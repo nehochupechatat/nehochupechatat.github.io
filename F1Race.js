@@ -957,6 +957,13 @@ function F1Race_Render_Opposite_Car()
 		
 function F1Race_Crashing()
 {
+    document.getElementById("audio-f1race").pause();
+    document.getElementById("audio-f1race_lowcost").pause();
+    document.getElementById("audio-crash").pause();
+    document.getElementById("audio-gameover").pause();
+
+    document.getElementById("audio-crash").currentTime = 0;
+    document.getElementById("audio-crash").play();
     f1race_is_crashing = true;
 }
 
@@ -1089,9 +1096,17 @@ function F1Race_Render()
 
 
 //main
-var low_cost_audio = false;
+var low_cost_audio = true;
 function newGame ()
 {var index;
+document.getElementById("audio-f1race").pause();
+document.getElementById("audio-f1race_lowcost").pause();
+document.getElementById("audio-crash").pause();
+document.getElementById("audio-gameover").pause();
+
+document.getElementById("audio-f1race" + (low_cost_audio ? "_lowcost" : "")).currentTime = 0;
+document.getElementById("audio-f1race" + (low_cost_audio ? "_lowcost" : "")).play();
+
 const Timer = setInterval(F1Race_Cyclic_Timer, F1RACE_TIMER_ELAPSE);
 f1race_is_new_game = true;
 f1race_is_crashing = false;

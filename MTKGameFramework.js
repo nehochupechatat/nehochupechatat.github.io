@@ -117,5 +117,12 @@ function mmi_gfx_draw_gameover_screen(text_img_id, box_img_id, pic_img_id, score
 	  ctx.textAlign = 'center';
 	  ctx.fillStyle=gui_color(0,0,0);
     ctx.fillText(score, (canvasWidth - box_image_width)*1.1, box_image_offset_y*1.45);
+    document.getElementById("audio-f1race").pause();
+    document.getElementById("audio-f1race_lowcost").pause();
+    document.getElementById("audio-crash").pause();
+    document.getElementById("audio-gameover").pause();
+
+    document.getElementById("audio-gameover").currentTime = 0;
+    document.getElementById("audio-gameover").play();
 
 }
