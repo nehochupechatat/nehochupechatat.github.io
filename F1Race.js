@@ -265,6 +265,7 @@ function keydownHandler(evt) {
 	case 32: //space
 	case 12: //numpad 5
 	case 13:
+	evt.preventDefault();
 	    if (f1race_fly_count > 0 )
     {	f1race_player_is_car_fly = true;
         f1race_player_car_fly_duration = 0;
