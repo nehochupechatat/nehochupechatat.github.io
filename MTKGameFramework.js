@@ -5,15 +5,19 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// C library rand() function
 function rand() {
 return getRandomInt(0,32767);;
 }
 
 var ctx = document.getElementById("myCanvas").getContext("2d");
 
+//returns color value in rgb values
 function gui_color (r,g,b)
 {return 'rgb('+r+','+g+','+b+')';}
 
+
+//fills a rectangle from a x1/y1 (start) position to an x2/y2 (end) position with a specified color
 function gui_fill_rectangle(x1,y1,x2,y2,color)
 {
  ctx.beginPath();
@@ -21,6 +25,7 @@ ctx.rect(x1,y1,x2-x1,y2-y1);
 ctx.fillStyle=color;
 ctx.fill();}
 
+//draws vertical line at fixed x position from y1 (start) position to y2 (end) position with a specified color
 function gui_draw_vertical_line (y1, y2, x, color)
 {ctx.beginPath();
 ctx.moveTo(x, y1);
@@ -28,13 +33,7 @@ ctx.lineTo(x, y2);
 ctx.strokeStyle = color;
 ctx.stroke();}
 
-function gui_draw_vertical_line (y1, y2, x, color)
-{ctx.beginPath();
-ctx.moveTo(x, y1);
-ctx.lineTo(x, y2);
-ctx.strokeStyle = color;
-ctx.stroke();}
-
+//draws horizontal line at fixed y position from x1 (start) position to x2 (end) position with a specified color
 function gui_draw_horizontal_line (x1, x2, y, color)
 {ctx.beginPath();
 ctx.moveTo(x1, y);
@@ -42,17 +41,20 @@ ctx.lineTo(x2, y);
 ctx.strokeStyle = color;
 ctx.stroke();}
 
+//puts certain colored pixel at a certain x/y value in the screen
 function gui_putpixel (x, y, color)
 {ctx.beginPath();
 ctx.rect(x,y,1,1);
 ctx.fillStyle=color;
 ctx.fill();}
 
+//shows image at certain x/y value
 function gui_show_image (x, y, i)
 {image = new Image();
 image.src = i;	
 ctx.drawImage(image, x, y);}
 
+//sets clip (works like gui_fill_rectangle)
 function gui_set_clip (x1, y1, x2, y2)
 {ctx.beginPath();
 ctx.rect(x1,y1,x2-x1,y2-y1);
@@ -71,6 +73,7 @@ image.src = i;
 var height = image.height;
 return height;}
 
+//draws gameover screen with a text on top, a box with score and a game over sprite, and draws score
 function mmi_gfx_draw_gameover_screen(text_img_id, box_img_id, pic_img_id, score)
 {
     var text_image_width = 0;
@@ -117,12 +120,5 @@ function mmi_gfx_draw_gameover_screen(text_img_id, box_img_id, pic_img_id, score
 	  ctx.textAlign = 'center';
 	  ctx.fillStyle=gui_color(0,0,0);
     ctx.fillText(score, (canvasWidth - box_image_width)*1.1, box_image_offset_y*1.45);
-    document.getElementById("audio-f1race").pause();
-    document.getElementById("audio-f1race_lowcost").pause();
-    document.getElementById("audio-crash").pause();
-    document.getElementById("audio-gameover").pause();
-
-    document.getElementById("audio-gameover").currentTime = 0;
-    document.getElementById("audio-gameover").play();
 
 }
