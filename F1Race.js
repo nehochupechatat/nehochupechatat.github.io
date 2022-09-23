@@ -1174,25 +1174,32 @@ gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));
 
 
 //loader
+ctx.font = Math.round(canvasWidth/10)-1+'px arial';
+ctx.textAlign = 'center';
+ctx.fillStyle=gui_color(0,0,0);
+ctx.fillText('Loading...', canvasWidth/2, canvasHeight/2);
 
-	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GOPIC);
-	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GRADESMAP);
-	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GOTEXT);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_BOX);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_FLY);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_LEVEL);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_SCORE);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_LOGO);	
 	for (var numsp = 0;numsp<10;numsp++)
-	{gui_show_image(canvasWidth*10, canvasHeight*10, 'GameImages/F1race/GAME_F1RACE_NUMBER_'+numsp+'.gif');}
-	for (var opcarsp = 0;opcarsp<7;opcarsp++)
-	{gui_show_image(canvasWidth*10, canvasHeight*10, 'GameImages/F1race/GAME_F1RACE_OPPOSITE_CAR_'+opcarsp+'.gif');}		
+	{gui_show_image(canvasWidth*10, canvasHeight*10, 'GameImages/F1race/GAME_F1RACE_NUMBER_'+numsp+'.gif');}	
 	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR);
 	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_CRASH);
 	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY);
 	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY_UP);
 	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY_DOWN);
-	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_FLY);
-	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_LEVEL);
-	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_SCORE);
-
-//Main menu	
+	for (var opcarsp = 0;opcarsp<7;opcarsp++)
+	{gui_show_image(canvasWidth*10, canvasHeight*10, 'GameImages/F1race/GAME_F1RACE_OPPOSITE_CAR_'+opcarsp+'.gif');}		
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GOPIC);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GRADESMAP);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GOTEXT);
 	
+	  
+//Main menu	
+gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));	
 gui_draw_horizontal_line(0,canvasWidth/2-24,10,gui_color(0,0,0));
 c = gui_color(135,159,255);
 gui_fill_rectangle(10,48,120,70,c);      
