@@ -190,49 +190,49 @@ let f1race_opposite_car_type = [
 {
     dx: F1RACE_OPPOSITE_CAR_0_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_0_IMAGE_SIZE_Y,
-    speed: 1,
+    speed: 0.75,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_0_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_0,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_1_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_1_IMAGE_SIZE_Y,
-    speed: 1.33,
+    speed: 1,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_1_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_1,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_2_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_2_IMAGE_SIZE_Y,
-    speed: 2,
+    speed: 1.5,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_2_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_2,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_3_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_3_IMAGE_SIZE_Y,
-    speed: 1,
+    speed: 0.75,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_3_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_3,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_4_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_4_IMAGE_SIZE_Y,
-    speed: 1,
+    speed: 0.75,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_4_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_4,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_5_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_5_IMAGE_SIZE_Y,
-    speed: 1.66,
+    speed: 1.25,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_5_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_5,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_6_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_6_IMAGE_SIZE_Y,
-    speed: 1,
+    speed: 0.75,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_6_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_6,
 }];
@@ -907,7 +907,7 @@ function F1Race_New_Opposite_Car()
 
     speed_add = f1race_level - 1;
     if (speed_add > 0)
-	{speed_add = speed_add / 3;}
+	{speed_add = speed_add / 4;}
     /* Init opposite car */
     f1race_opposite_car[validIndex].is_empty = false;
     f1race_opposite_car[validIndex].is_add_score = false;
@@ -1087,8 +1087,12 @@ function F1Race_Render_Player_Car_Crash()
 
 function F1Race_Render()
 {
+	
+	ctx.rect(F1RACE_DISPLAY_START_X, F1RACE_DISPLAY_START_Y, F1RACE_DISPLAY_END_X, F1RACE_DISPLAY_END_Y-4);
+    ctx.stroke();
+    ctx.clip();
     F1Race_Render_Background();
-    F1Race_Render_Status();
+	F1Race_Render_Status();
     F1Race_Render_Road();
     F1Race_Render_Separator();
     F1Race_Render_Opposite_Car();
