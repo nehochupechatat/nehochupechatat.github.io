@@ -1100,10 +1100,12 @@ function F1Race_Render()
 var low_cost_audio = false;
 function newGame ()
 {var index;
-document.getElementById("audio-f1race").stop();
-document.getElementById("audio-f1race_lowcost").stop();
-document.getElementById("audio-crash").stop();
-document.getElementById("audio-gameover").stop();
+document.getElementById("audio-f1race").pause();
+document.getElementById("audio-f1race_lowcost").pause();
+document.getElementById("audio-crash").pause();
+document.getElementById("audio-crash").currentTime = 0;
+document.getElementById("audio-gameover").pause();
+document.getElementById("audio-gameover").currentTime = 0;
 
 document.getElementById("audio-f1race" + (low_cost_audio ? "_lowcost" : "")).currentTime = 0;
 document.getElementById("audio-f1race" + (low_cost_audio ? "_lowcost" : "")).play();
