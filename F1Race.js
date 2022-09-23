@@ -1166,7 +1166,29 @@ function F1Race_Cyclic_Timer()
 
 }};
 gover = true;
-	gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));
+gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));
+
+
+//loader
+
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GOPIC);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GRADESMAP);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GOTEXT);
+	for (var numsp = 0;numsp<10;numsp++)
+	{gui_show_image(canvasWidth*10, canvasHeight*10, 'GameImages/F1race/GAME_F1RACE_NUMBER_'+numsp+'.gif');}
+	for (var opcarsp = 0;opcarsp<7;opcarsp++)
+	{gui_show_image(canvasWidth*10, canvasHeight*10, 'GameImages/F1race/GAME_F1RACE_OPPOSITE_CAR_'+opcarsp+'.gif');}		
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_CRASH);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY_UP);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY_DOWN);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_FLY);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_LEVEL);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_SCORE);
+
+//Main menu	
+	
 gui_draw_horizontal_line(0,canvasWidth/2-24,10,gui_color(0,0,0));
 c = gui_color(135,159,255);
 gui_fill_rectangle(10,48,120,70,c);      
