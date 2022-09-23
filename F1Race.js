@@ -1097,7 +1097,7 @@ function F1Race_Render()
 
 
 //main
-var low_cost_audio = false;
+var low_cost_audio = true;
 function newGame ()
 {var index;
 document.getElementById("audio-f1race").pause();
