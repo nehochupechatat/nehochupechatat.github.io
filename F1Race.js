@@ -970,7 +970,7 @@ function F1Race_Crashing()
 function F1Race_Draw_GameOver()
 {       mmi_gfx_draw_gameover_screen(IMG_GX_F1RACE_GOTEXT, IMG_GX_F1RACE_GRADESMAP, IMG_GX_F1RACE_GOPIC, f1race_score)
       gover = true;
-	  document.getElementById("audio-f1race-gameover").play();
+	  document.getElementById("audio-gameover").play();
 }
 
 function F1Race_Framemove()
@@ -1100,10 +1100,10 @@ function F1Race_Render()
 var low_cost_audio = false;
 function newGame ()
 {var index;
-document.getElementById("audio-f1race").pause();
-document.getElementById("audio-f1race_lowcost").pause();
-document.getElementById("audio-crash").pause();
-document.getElementById("audio-gameover").pause();
+document.getElementById("audio-f1race").stop();
+document.getElementById("audio-f1race_lowcost").stop();
+document.getElementById("audio-crash").stop();
+document.getElementById("audio-gameover").stop();
 
 document.getElementById("audio-f1race" + (low_cost_audio ? "_lowcost" : "")).currentTime = 0;
 document.getElementById("audio-f1race" + (low_cost_audio ? "_lowcost" : "")).play();
