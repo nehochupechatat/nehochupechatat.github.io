@@ -1088,9 +1088,6 @@ function F1Race_Render_Player_Car_Crash()
 function F1Race_Render()
 {
 	
-	ctx.rect(F1RACE_DISPLAY_START_X, F1RACE_DISPLAY_START_Y, F1RACE_DISPLAY_END_X, F1RACE_DISPLAY_END_Y-4);
-    ctx.stroke();
-    ctx.clip();
     F1Race_Render_Background();
 	F1Race_Render_Status();
     F1Race_Render_Road();
@@ -1142,8 +1139,13 @@ f1race_fly_charger_count = 0;
         f1race_opposite_car[index].is_empty = true; /* clear all slot, no car */
         f1race_opposite_car[index].is_add_score = false;
     }
-
-
+	
+	gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));
+	ctx.strokeStyle = 'black';
+	ctx.beginPath();
+	ctx.rect(F1RACE_DISPLAY_START_X, F1RACE_DISPLAY_START_Y, F1RACE_DISPLAY_END_X, F1RACE_DISPLAY_END_Y-4);
+    ctx.stroke();
+    ctx.clip();
 function F1Race_Cyclic_Timer()
 {
 
