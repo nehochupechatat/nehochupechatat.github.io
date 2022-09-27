@@ -122,3 +122,11 @@ function mmi_gfx_draw_gameover_screen(text_img_id, box_img_id, pic_img_id, score
     ctx.fillText(score, (canvasWidth - box_image_width)*1.1, box_image_offset_y*1.45);
 
 }
+
+const GDI_COLOR_WHITE = 'rgb(255, 255, 255)';
+const GDI_COLOR_BLACK = 'rgb(0, 0, 0)';
+const GDI_COLOR_GRAY = 'rgb(127, 127, 127)';
+const GDI_COLOR_RED = 'rgb(255, 0, 0)';
+const GDI_COLOR_BLUE = 'rgb(0, 0, 255)';
+const GDI_COLOR_GREEN = 'rgb(0, 255, 0)';
+// GDI_COLOR_TRANSPARENT would have to be handled for each game because its value depends on GDI_USING_LAYER
