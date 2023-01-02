@@ -7,10 +7,13 @@ function getRandomInt(min, max) {
 
 // C library rand() function
 function rand() {
-return getRandomInt(0,32767);;
+return Math.round(Math.random()*32768);
 }
 
 var ctx = document.getElementById("myCanvas").getContext("2d");
+
+
+//PlutoMMI 
 
 //returns color value in rgb values
 function gui_color (r,g,b)
@@ -19,11 +22,8 @@ function gui_color (r,g,b)
 
 //fills a rectangle from a x1/y1 (start) position to an x2/y2 (end) position with a specified color
 function gui_fill_rectangle(x1,y1,x2,y2,color)
-{
- ctx.beginPath();
-ctx.rect(x1,y1,x2-x1,y2-y1);
-ctx.fillStyle=color;
-ctx.fill();}
+{ctx.fillStyle=color;
+ctx.fillRect(x1,y1,x2-x1,y2-y1);}
 
 //draws vertical line at fixed x position from y1 (start) position to y2 (end) position with a specified color
 function gui_draw_vertical_line (y1, y2, x, color)
@@ -43,10 +43,8 @@ ctx.stroke();}
 
 //puts certain colored pixel at a certain x/y value in the screen
 function gui_putpixel (x, y, color)
-{ctx.beginPath();
-ctx.rect(x,y,1,1);
-ctx.fillStyle=color;
-ctx.fill();}
+{ctx.fillStyle=color;
+ctx.fillRect(x,y,1,1);}
 
 //shows image at certain x/y value
 function gui_show_image (x, y, i)
@@ -122,3 +120,8 @@ function mmi_gfx_draw_gameover_screen(text_img_id, box_img_id, pic_img_id, score
     ctx.fillText(score, (canvasWidth - box_image_width)*1.1, box_image_offset_y*1.45);
 
 }
+// GDI version of GUI_show_image
+ function gdi_image_draw_id(x,y,image_id)
+ {image = new Image();
+image.src = i_id;	
+ ctx.drawImage(image, x, y);}
