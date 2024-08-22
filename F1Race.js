@@ -190,49 +190,49 @@ let f1race_opposite_car_type = [
 {
     dx: F1RACE_OPPOSITE_CAR_0_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_0_IMAGE_SIZE_Y,
-    speed: 1,
+    speed: 0.75,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_0_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_0,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_1_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_1_IMAGE_SIZE_Y,
-    speed: 1.33,
+    speed: 1,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_1_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_1,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_2_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_2_IMAGE_SIZE_Y,
-    speed: 2,
+    speed: 1.5,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_2_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_2,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_3_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_3_IMAGE_SIZE_Y,
-    speed: 1,
+    speed: 0.75,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_3_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_3,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_4_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_4_IMAGE_SIZE_Y,
-    speed: 1,
+    speed: 0.75,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_4_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_4,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_5_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_5_IMAGE_SIZE_Y,
-    speed: 1.66,
+    speed: 1.25,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_5_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_5,
 },
 {
     dx: F1RACE_OPPOSITE_CAR_6_IMAGE_SIZE_X,
     dy: F1RACE_OPPOSITE_CAR_6_IMAGE_SIZE_Y,
-    speed: 1,
+    speed: 0.75,
     dx_from_road: (F1RACE_ROAD_WIDTH - F1RACE_OPPOSITE_CAR_6_IMAGE_SIZE_X) / 2,
     image: IMG_GX_F1RACE_OPPOSITE_CAR_6,
 }];
@@ -907,7 +907,7 @@ function F1Race_New_Opposite_Car()
 
     speed_add = f1race_level - 1;
     if (speed_add > 0)
-	{speed_add = speed_add / 3;}
+	{speed_add = speed_add / 4;}
     /* Init opposite car */
     f1race_opposite_car[validIndex].is_empty = false;
     f1race_opposite_car[validIndex].is_add_score = false;
@@ -957,12 +957,20 @@ function F1Race_Render_Opposite_Car()
 		
 function F1Race_Crashing()
 {
+    document.getElementById("audio-f1race").pause();
+    document.getElementById("audio-f1race_lowcost").pause();
+    document.getElementById("audio-crash").pause();
+    document.getElementById("audio-gameover").pause();
+
+    document.getElementById("audio-crash").currentTime = 0;
+    document.getElementById("audio-crash").play();
     f1race_is_crashing = true;
 }
 
 function F1Race_Draw_GameOver()
 {       mmi_gfx_draw_gameover_screen(IMG_GX_F1RACE_GOTEXT, IMG_GX_F1RACE_GRADESMAP, IMG_GX_F1RACE_GOPIC, f1race_score)
       gover = true;
+	  document.getElementById("audio-gameover").play();
 }
 
 function F1Race_Framemove()
@@ -1079,8 +1087,9 @@ function F1Race_Render_Player_Car_Crash()
 
 function F1Race_Render()
 {
+	
     F1Race_Render_Background();
-    F1Race_Render_Status();
+	F1Race_Render_Status();
     F1Race_Render_Road();
     F1Race_Render_Separator();
     F1Race_Render_Opposite_Car();
@@ -1092,6 +1101,16 @@ function F1Race_Render()
 var low_cost_audio = false;
 function newGame ()
 {var index;
+document.getElementById("audio-f1race").pause();
+document.getElementById("audio-f1race_lowcost").pause();
+document.getElementById("audio-crash").pause();
+document.getElementById("audio-crash").currentTime = 0;
+document.getElementById("audio-gameover").pause();
+document.getElementById("audio-gameover").currentTime = 0;
+
+document.getElementById("audio-f1race" + (low_cost_audio ? "_lowcost" : "")).currentTime = 0;
+document.getElementById("audio-f1race" + (low_cost_audio ? "_lowcost" : "")).play();
+
 const Timer = setInterval(F1Race_Cyclic_Timer, F1RACE_TIMER_ELAPSE);
 f1race_is_new_game = true;
 f1race_is_crashing = false;
@@ -1120,8 +1139,13 @@ f1race_fly_charger_count = 0;
         f1race_opposite_car[index].is_empty = true; /* clear all slot, no car */
         f1race_opposite_car[index].is_add_score = false;
     }
-
-
+	
+	gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));
+	ctx.strokeStyle = 'black';
+	ctx.beginPath();
+	ctx.rect(F1RACE_DISPLAY_START_X, F1RACE_DISPLAY_START_Y, F1RACE_DISPLAY_END_X, F1RACE_DISPLAY_END_Y-4);
+    ctx.stroke();
+    ctx.clip();
 function F1Race_Cyclic_Timer()
 {
 
@@ -1148,7 +1172,36 @@ function F1Race_Cyclic_Timer()
 
 }};
 gover = true;
-	gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));
+gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));
+
+
+//loader
+ctx.font = Math.round(canvasWidth/10)-1+'px arial';
+ctx.textAlign = 'center';
+ctx.fillStyle=gui_color(0,0,0);
+ctx.fillText('Loading...', canvasWidth/2, canvasHeight/2);
+
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_BOX);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_FLY);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_LEVEL);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_SCORE);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_STATUS_LOGO);	
+	for (var numsp = 0;numsp<10;numsp++)
+	{gui_show_image(canvasWidth*10, canvasHeight*10, 'GameImages/F1race/GAME_F1RACE_NUMBER_'+numsp+'.gif');}	
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_CRASH);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY_UP);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_PLAYER_CAR_FLY_DOWN);
+	for (var opcarsp = 0;opcarsp<7;opcarsp++)
+	{gui_show_image(canvasWidth*10, canvasHeight*10, 'GameImages/F1race/GAME_F1RACE_OPPOSITE_CAR_'+opcarsp+'.gif');}		
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GOPIC);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GRADESMAP);
+	gui_show_image(canvasWidth*10, canvasHeight*10, IMG_GX_F1RACE_GOTEXT);
+	
+	  
+//Main menu	
+gui_fill_rectangle(0,0,canvasWidth,canvasHeight,gui_color(255,255,255));	
 gui_draw_horizontal_line(0,canvasWidth/2-24,10,gui_color(0,0,0));
 c = gui_color(135,159,255);
 gui_fill_rectangle(10,48,120,70,c);      
